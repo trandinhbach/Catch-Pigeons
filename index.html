@@ -1083,8 +1083,9 @@
                 pigeonInventory[p.species.id] = (pigeonInventory[p.species.id] || 0) + 1;
                 saveGameData();
                 updateQuestProgress('catch_count', 1);
-                if (p.species.r === 'Hiếm' || p.species.r === 'Cực Hiếm' || p.species.r === 'Huyền Thoại') {
-                updateQuestProgress('catch_rare_count', 1);
+                // Mở rộng điều kiện bắt các loài từ Hiếm trở lên (bao gồm cả kiểm tra theo mức thưởng xu >= 40)
+                if (p.species.r === 'Hiếm' || p.species.r === 'Cực Hiếm' || p.species.r === 'Huyền Thoại' || p.species.coinReward >= 40) {
+                    updateQuestProgress('catch_rare_count', 1);
                 }
 
                 const isNew = !collectedSpecies.has(p.species.id);
