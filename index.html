@@ -1082,10 +1082,12 @@
                 sounds.playSuccess();
                 pigeonInventory[p.species.id] = (pigeonInventory[p.species.id] || 0) + 1;
                 saveGameData();
-                updateQuestProgress('catch_count', 1);
-                // Mở rộng điều kiện bắt các loài từ Hiếm trở lên (bao gồm cả kiểm tra theo mức thưởng xu >= 40)
+               updateQuestProgress('catch_count', 1);
+                
+                // KIỂM TRA CHUẨN ĐỘ HIẾM TỪ HIẾM TRỞ LÊN HOẶC THƯỞNG XU >= 40
                 if (p.species.r === 'Hiếm' || p.species.r === 'Cực Hiếm' || p.species.r === 'Huyền Thoại' || p.species.coinReward >= 40) {
                     updateQuestProgress('catch_rare_count', 1);
+                    updateQuestProgress('catch_rare', 1); // Đảm bảo khớp cả ID nhiệm vụ catch_rare nếu có trong ngày
                 }
 
                 const isNew = !collectedSpecies.has(p.species.id);
@@ -1721,7 +1723,14 @@ document.getElementById('buyBreadBtn').addEventListener('click', () => {
           let updated = false;
           dailyQuestData.activeQuests.forEach(qId => {
               const questConfig = MASTER_QUEST_POOL.find(q => q.id === qId);
-              if (questConfig && questConfig.type === type && !dailyQuestData.claimed[qId]) {
+              if (!questConfig) return;
+
+              // Cho phép khớp linh hoạt giữa type truyền vào và cấu hình nhiệm vụ
+              const isMatch = (questConfig.type === type) || 
+                              (type === 'catch_rare_count' && questConfig.id === 'catch_rare') ||
+                              (type === 'catch_count' && (questConfig.type === 'catch_count' || questConfig.id === 'catch_rare'));
+
+              if (isMatch && !dailyQuestData.claimed[qId]) {
                   dailyQuestData.progress[qId] = (dailyQuestData.progress[qId] || 0) + amount;
                   if (dailyQuestData.progress[qId] > questConfig.target) {
                       dailyQuestData.progress[qId] = questConfig.target;
