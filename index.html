@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <title>Bắt Bồ Câu & Bách Khoa Toàn Thư Cartoon</title>
+    <title>Catch Pigeons</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Font Awesome Icons -->
@@ -232,6 +232,33 @@
     </style>
 </head>
 <body id="bodyBg" class="h-screen w-screen overflow-hidden sky-day relative flex flex-col justify-between transition-colors duration-1000">
+<!-- START MAIN MENU SCREEN -->
+    <div id="startMenuScreen" class="fixed inset-0 bg-slate-950/85 backdrop-blur-md z-50 flex items-center justify-center p-4 transition-opacity duration-500">
+        <div class="bg-gradient-to-b from-sky-100 to-amber-50 border-8 border-amber-400 rounded-3xl max-w-lg w-full p-6 sm:p-8 shadow-2xl text-center relative overflow-hidden flex flex-col items-center">
+            
+            <div class="absolute -top-6 -left-6 text-6xl opacity-40">☁️</div>
+            <div class="absolute -bottom-6 -right-6 text-6xl opacity-40">☁️</div>
+
+            <div class="w-24 h-24 bg-sky-200 border-4 border-sky-400 rounded-full flex items-center justify-center shadow-inner mb-4 relative animate-bounce">
+                <span class="text-5xl">🕊️</span>
+            </div>
+
+            <!-- Tên game chuẩn Catch Pigeons -->
+            <h1 class="text-3xl sm:text-4xl font-black text-slate-900 mb-2 leading-tight nunito tracking-wide">
+                Catch Pigeons
+            </h1>
+
+            <div class="bg-white/80 border-2 border-amber-200 rounded-2xl p-4 text-left w-full mb-6 space-y-2 shadow-sm text-xs font-bold text-slate-700">
+                <div class="flex items-center gap-2"><span>🌱</span> <span>Nhấp vào thảm cỏ để rải thức ăn thu hút chim.</span></div>
+                <div class="flex items-center gap-2"><span>🕊</span> <span>Nhấp vào bồ câu đang ăn hoặc đi dạo để giăng lưới bắt.</span></div>
+                <div class="flex items-center gap-2"><span>🏡</span> <span>Nuôi trong chuồng hoặc bán lấy xu nâng cấp cửa hàng!</span></div>
+            </div>
+
+            <button id="startGameBtn" class="w-full py-4 bg-gradient-to-r from-amber-400 via-orange-500 to-amber-500 hover:from-amber-300 hover:to-orange-400 text-amber-950 font-black text-lg rounded-2xl shadow-xl border-b-6 border-orange-700 active:scale-95 transition-all flex items-center justify-center gap-2">
+                <i class="fa-solid fa-play text-xl"></i> START GAME 🕊️
+            </button>
+        </div>
+    </div>
 
     <!-- CLOUDS BACKGROUND -->
     <div class="absolute inset-0 pointer-events-none z-0 overflow-hidden">
@@ -242,7 +269,7 @@
 
     <!-- HUD TOP BAR -->
     <header class="relative z-30 p-3 sm:p-5 max-w-6xl mx-auto w-full">
-        <div class="bg-white/90 backdrop-blur-md rounded-3xl p-3 sm:p-4 shadow-xl border-4 border-amber-300 flex justify-between items-center text-slate-800">
+        <div class="relative bg-white/90 backdrop-blur-md rounded-3xl p-3 sm:p-4 shadow-xl border-4 border-amber-300 flex justify-between items-center text-slate-800">
             
             <!-- COIN & COLLECTION STATS -->
             <div class="flex items-center gap-3 sm:gap-6">
@@ -292,6 +319,11 @@
                 <button id="openBookBtn" class="bg-gradient-to-r from-indigo-500 to-purple-600 hover:scale-105 text-white font-black px-4 py-2.5 rounded-2xl shadow-lg border-b-4 border-purple-800 flex items-center gap-2 text-xs sm:text-sm active:scale-95 transition-all">
                     <i class="fa-solid fa-book-open-reader text-base"></i>
                     <span class="hidden sm:inline">Bách Khoa Bồ Câu</span>
+                </button>
+                <button id="openQuestsBtn" class="bg-gradient-to-r from-rose-500 to-pink-600 hover:scale-105 text-white font-black px-4 py-2.5 rounded-2xl shadow-lg border-b-4 border-pink-800 flex items-center gap-2 text-xs sm:text-sm active:scale-95 transition-all relative">
+                    <i class="fa-solid fa-trophy text-base"></i>
+                    <span class="hidden sm:inline">Nhiệm Vụ</span>
+                    <span id="questDot" class="absolute -top-1 -right-1 w-3.5 h-3.5 bg-red-500 rounded-full border-2 border-white animate-pulse hidden"></span>
                 </button>
             </div>
         </div>
@@ -464,12 +496,12 @@
                             <circle cx="17" cy="14" r="3" fill="#16a34a" stroke="#14532d" stroke-width="1"/>
                         </svg>
                         <div>
-                            <h4 class="font-black text-sm text-emerald-300">Hạt Đậu Nạp Năng Lượng (x1)</h4>
+                            <h4 class="font-black text-sm text-emerald-300">Hạt Đậu Nạp Năng Lượng</h4>
                             <p class="text-xs text-gray-400">Thu hút Bồ câu Nicobar, Trái Tim & Xòe Đuôi</p>
                         </div>
                     </div>
-                    <button id="buyPeasBtn" class="px-5 py-2.5 bg-amber-400 hover:bg-amber-300 text-amber-950 font-black rounded-xl text-xs shadow-md border-b-4 border-amber-600 shrink-0">
-                        Mua x1 (50 Xu)
+                    <button id="buyPeasBtn" class="px-5 py-2.5 bg-amber-400 hover:bg-amber-300 text-amber-950 font-black rounded-xl text-xs shadow-md border-b-4 border-amber-600 shrink-0 flex items-center gap-1">
+                        Mua x1 (50 <svg class="w-4 h-4 inline-block drop-shadow-sm" viewBox="0 0 36 36"><circle cx="18" cy="18" r="16" fill="#f59e0b" stroke="#b45309" stroke-width="2"/><circle cx="18" cy="18" r="13" fill="#fbbf24" stroke="#d97706" stroke-width="1.5"/><circle cx="18" cy="18" r="10" fill="#fef08a" stroke="#f59e0b" stroke-width="1"/><text x="18" y="23" font-size="14" font-weight="900" fill="#b45309" text-anchor="middle">đ</text></svg>)
                     </button>
                 </div>
 
@@ -480,12 +512,12 @@
                             <path d="M 8,14 C 8,10 12,8 16,8 C 20,8 24,10 24,14 Z" fill="#fde047" stroke="#b45309" stroke-width="1.5"/>
                         </svg>
                         <div>
-                            <h4 class="font-bold text-sm text-amber-300">Bánh Mì Thượng Hạng (x1)</h4>
+                            <h4 class="font-bold text-sm text-amber-300">Bánh Mì Thượng Hạng</h4>
                             <p class="text-xs text-gray-400">Dụ bồ câu Vương Miện, Đua & Hoàng Gia Vàng</p>
                         </div>
                     </div>
-                    <button id="buyBreadBtn" class="px-5 py-2.5 bg-amber-400 hover:bg-amber-300 text-amber-950 font-black rounded-xl text-xs shadow-md border-b-4 border-amber-600 shrink-0">
-                        Mua x1 (150 Xu)
+                    <button id="buyBreadBtn" class="px-5 py-2.5 bg-amber-400 hover:bg-amber-300 text-amber-950 font-black rounded-xl text-xs shadow-md border-b-4 border-amber-600 shrink-0 flex items-center gap-1">
+                        Mua x1 (150 <svg class="w-4 h-4 inline-block drop-shadow-sm" viewBox="0 0 36 36"><circle cx="18" cy="18" r="16" fill="#f59e0b" stroke="#b45309" stroke-width="2"/><circle cx="18" cy="18" r="13" fill="#fbbf24" stroke="#d97706" stroke-width="1.5"/><circle cx="18" cy="18" r="10" fill="#fef08a" stroke="#f59e0b" stroke-width="1"/><text x="18" y="23" font-size="14" font-weight="900" fill="#b45309" text-anchor="middle">đ</text></svg>)
                     </button>
                 </div>
 
@@ -500,14 +532,37 @@
                             <p class="text-xs text-gray-400">Tăng +35% tỷ lệ bắt thành công khi chim hoảng sợ</p>
                         </div>
                     </div>
-                    <button id="buyNetUpgradeBtn" class="px-5 py-2.5 bg-amber-400 hover:bg-amber-300 text-amber-950 font-black rounded-xl text-xs shadow-md border-b-4 border-amber-600 shrink-0">
-                        100 Xu
+                    <button id="buyNetUpgradeBtn" class="px-5 py-2.5 bg-amber-400 hover:bg-amber-300 text-amber-950 font-black rounded-xl text-xs shadow-md border-b-4 border-amber-600 shrink-0 flex items-center gap-1">
+                        100 <svg class="w-4 h-4 inline-block drop-shadow-sm" viewBox="0 0 36 36"><circle cx="18" cy="18" r="16" fill="#f59e0b" stroke="#b45309" stroke-width="2"/><circle cx="18" cy="18" r="13" fill="#fbbf24" stroke="#d97706" stroke-width="1.5"/><circle cx="18" cy="18" r="10" fill="#fef08a" stroke="#f59e0b" stroke-width="1"/><text x="18" y="23" font-size="14" font-weight="900" fill="#b45309" text-anchor="middle">đ</text></svg>
                     </button>
                 </div>
             </div>
         </div>
     </div>
+<!-- QUESTS MODAL -->
+  <div id="questModal" class="fixed inset-0 bg-slate-950/85 backdrop-blur-md z-50 flex items-center justify-center p-3 sm:p-6 hidden">
+      <div class="bg-pink-50 rounded-3xl max-w-xl w-full max-h-[90vh] flex flex-col shadow-2xl border-4 border-pink-500 overflow-hidden">
+          <div class="bg-gradient-to-r from-rose-600 to-pink-700 p-4 sm:p-5 text-white flex justify-between items-center">
+              <div class="flex items-center gap-3">
+                  <span class="text-4xl">🎯</span>
+                  <div>
+                      <h2 class="text-xl sm:text-2xl font-black text-pink-100">Nhiệm Vụ Hàng Ngày</h2>
+                      <p class="text-xs text-pink-200 opacity-90">Hoàn thành thử thách mỗi ngày để nhận thưởng xu hấp dẫn!</p>
+                  </div>
+              </div>
+              <button id="closeQuestBtn" class="w-9 h-9 rounded-full bg-white/20 hover:bg-white/30 text-white font-black flex items-center justify-center text-base">✕</button>
+          </div>
 
+          <div class="bg-pink-200/80 p-3 sm:p-4 border-b border-pink-300 flex justify-between items-center text-xs font-black text-pink-900">
+              <span>🔄 Làm mới sau mỗi 24 giờ (Cố định theo ngày)</span>
+              <span id="questResetTimer" class="bg-white/80 px-3 py-1 rounded-xl border border-pink-300 text-pink-700">Hôm nay</span>
+          </div>
+
+          <div id="questListContainer" class="p-4 sm:p-6 overflow-y-auto custom-scroll space-y-3 flex-grow bg-pink-100/40">
+              <!-- Danh sách nhiệm vụ sẽ được render bằng JS -->
+          </div>
+      </div>
+  </div>
     <!-- LOFT / KHO BỒ CÂU MODAL -->
     <div id="loftModal" class="fixed inset-0 bg-slate-950/85 backdrop-blur-md z-50 flex items-center justify-center p-3 sm:p-6 hidden">
         <div class="bg-emerald-50 rounded-3xl max-w-4xl w-full max-h-[90vh] flex flex-col shadow-2xl border-4 border-emerald-500 overflow-hidden">
@@ -988,35 +1043,34 @@
             </svg>`;
             gameArea.appendChild(net);
             setTimeout(() => net.remove(), 450);
-
-            // PHÂN HÓA PHẢN ỨNG THỰC TẾ CỦA ĐÀN BỒ CÂU XUNG QUANH
+// PHÂN HÓA PHẢN ỨNG THỰC TẾ: HOẢNG SỢ RÕ RỆT (CHẠY TẢN XA HOẶC BAY LÊN TRỜI)
             const areaHeight = gameArea.clientHeight;
             const grassTop = areaHeight * 0.65;
             const grassBottom = areaHeight - 80;
             
-            const panicCloseRadius = 120; // Vùng cực gần: Giật mình bay vụt lên hoặc bay sà thấp
-            const panicFarRadius = 260;   // Vùng xa hơn: Chỉ đi bộ giật lùi né ra hoặc đứng ngơ ngác
-
             pigeonsOnScreen.forEach(otherP => {
                 if (otherP.id !== p.id && otherP.state !== 'flying_away') {
                     const dist = Math.hypot(otherP.x - p.x, otherP.y - p.y);
                     
-                    if (dist < panicCloseRadius) {
-                        // Con nào ở ngay cạnh: 40% bay mất hút, 60% chỉ bay sà thấp tránh né
-                        if (Math.random() < 0.4) {
+                    if (dist < 250) {
+                        // Hủy bỏ ngay lập tức mục tiêu ăn uống để chúng không thể đứng ăn tiếp
+                        otherP.targetFood = null;
+                        otherP.eatingProgress = 0;
+
+                        // 25% hoảng sợ bay vụt lên trời, 75% cắm cổ chạy tản ra xa ngay trên thảm cỏ
+                        if (Math.random() < 0.25) {
                             otherP.targetY = -120;
-                            otherP.targetX = otherP.x + (otherP.x > p.x ? 180 : -180);
+                            otherP.targetX = otherP.x + (otherP.x > p.x ? 280 : -280);
                             setPigeonAnimation(otherP, 'flying_away');
                         } else {
-                            otherP.targetX = Math.max(40, Math.min(gameArea.clientWidth - 80, otherP.x + (otherP.x > p.x ? 140 : -140)));
-                            otherP.targetY = Math.random() * (grassBottom - grassTop) + grassTop;
-                            setPigeonAnimation(otherP, 'flying_down');
+                            // Chạy né một đoạn khá xa (240px) để tạo cảm giác hoảng sợ thật sự
+                            otherP.targetX = Math.max(40, Math.min(gameArea.clientWidth - 80, otherP.x + (otherP.x > p.x ? 240 : -240)));
+                            otherP.targetY = Math.max(grassTop, Math.min(grassBottom, otherP.y + (Math.random() - 0.5) * 100));
+                            
+                            // Đặt cờ tạm thời khóa không cho quét mồi trong 1.5 giây để chúng chạy hẳn ra rồi mới tính tiếp
+                            otherP.panicCooldown = Date.now() + 1500;
+                            setPigeonAnimation(otherP, 'walking');
                         }
-                    } else if (dist < panicFarRadius) {
-                        // Mấy con ở xa hơn: Chỉ đi bộ giật lùi né ra một chút rồi tiếp tục ăn
-                        otherP.targetX = Math.max(40, Math.min(gameArea.clientWidth - 80, otherP.x + (otherP.x > p.x ? 80 : -80)));
-                        otherP.targetY = Math.random() * (grassBottom - grassTop) + grassTop;
-                        setPigeonAnimation(otherP, 'walking');
                     }
                 }
             });
@@ -1027,6 +1081,11 @@
             if (Math.random() <= chance) {
                 sounds.playSuccess();
                 pigeonInventory[p.species.id] = (pigeonInventory[p.species.id] || 0) + 1;
+                saveGameData();
+                updateQuestProgress('catch_count', 1);
+                if (p.species.r === 'Hiếm' || p.species.r === 'Cực Hiếm' || p.species.r === 'Huyền Thoại') {
+                updateQuestProgress('catch_rare_count', 1);
+                }
 
                 const isNew = !collectedSpecies.has(p.species.id);
                 collectedSpecies.add(p.species.id);
@@ -1080,17 +1139,35 @@
             }
 
             sounds.playFeed();
+            updateQuestProgress('feed_count', 1);
 
             if (selectedFood === 'peas' || selectedFood === 'bread') {
                 foodInventory[selectedFood]--;
                 updateFoodButtonsUI();
             }
 
-            const count = selectedFood === 'corn' ? Math.floor(Math.random() * 3) + 8 : 1;
+            // Đặt số lượng hạt: Hạt bắp (8-10 hạt), Hạt đậu (5-7 hạt), Bánh mì (3-4 miếng)
+            let count = 1;
+            let spreadRangeX = 0;
+            let spreadRangeY = 0;
+
+            if (selectedFood === 'corn') {
+                count = Math.floor(Math.random() * 3) + 8;
+                spreadRangeX = 70;
+                spreadRangeY = 40;
+            } else if (selectedFood === 'peas') {
+                count = Math.floor(Math.random() * 3) + 5;
+                spreadRangeX = 50;
+                spreadRangeY = 30;
+            } else if (selectedFood === 'bread') {
+                count = Math.floor(Math.random() * 2) + 3;
+                spreadRangeX = 45;
+                spreadRangeY = 25;
+            }
 
             for (let i = 0; i < count; i++) {
-                const offsetX = (Math.random() - 0.5) * (selectedFood === 'corn' ? 70 : 0);
-                const offsetY = (Math.random() - 0.5) * (selectedFood === 'corn' ? 40 : 0);
+                const offsetX = (Math.random() - 0.5) * spreadRangeX;
+                const offsetY = (Math.random() - 0.5) * spreadRangeY;
                 const fx = Math.max(30, Math.min(gameArea.clientWidth - 30, clickX + offsetX));
                 const fy = Math.max(grassTopBoundary, Math.min(gameArea.clientHeight - 30, clickY + offsetY));
 
@@ -1117,7 +1194,8 @@
                     el: foodEl,
                     x: fx,
                     y: fy,
-                    reservedBy: null
+                    reservedBy: null,
+                    createdAt: Date.now()
                 });
             }
 
@@ -1166,6 +1244,23 @@
             const grassTop = areaHeight * 0.65;
             const grassBottom = areaHeight - 80;
 
+// TỰ ĐỘNG XÓA THỨC ĂN NẾU ĐỂ QUÁ LÂU (SAU 18 GIÂY)
+            const currentTime = Date.now();
+            foodsOnScreen = foodsOnScreen.filter(f => {
+                if (currentTime - f.createdAt > 18000) { // 18 giây
+                    // Nếu đang có con chim nào hướng tới hạt này thì giải phóng mục tiêu cho nó
+                    pigeonsOnScreen.forEach(p => {
+                        if (p.targetFood?.id === f.id) {
+                            p.targetFood = null;
+                            setPigeonAnimation(p, 'idle');
+                        }
+                    });
+                    f.el.remove();
+                    return false;
+                }
+                return true;
+            });
+
             pigeonsOnScreen.forEach(p => {
                 if (p.state === 'flying_away') {
                     p.y -= 3.5;
@@ -1201,6 +1296,7 @@
                         p.el.style.left = `${p.x}px`;
                         p.el.style.top = `${p.y}px`;
                     } else {
+                        // Vừa hạ cánh xuống là lập tức chuyển sang tìm mồi/ăn ngay
                         setPigeonAnimation(p, 'idle');
                     }
                     return;
@@ -1238,29 +1334,31 @@
                     return;
                 }
 
-                if (!p.targetFood && foodsOnScreen.length > 0) {
-                    const unreservedFoods = foodsOnScreen.filter(f => !f.reservedBy || f.reservedBy === p.id);
-                    if (unreservedFoods.length > 0) {
-                        let closest = unreservedFoods[0];
-                        let minD = Math.hypot(closest.x - p.x, closest.y - p.y);
+                // CHO PHÉP CHIM QUÉT TÌM THỨC ĂN (NHƯNG PHẢI HẾT THỜI GIAN HOẢNG SỢ)
+                if (!p.targetFood && foodsOnScreen.length > 0 && (p.state === 'idle' || p.state === 'walking')) {
+                    if (!p.panicCooldown || Date.now() > p.panicCooldown) {
+                        const unreservedFoods = foodsOnScreen.filter(f => !f.reservedBy || f.reservedBy === p.id);
+                        if (unreservedFoods.length > 0) {
+                            let closest = unreservedFoods[0];
+                            let minD = Math.hypot(closest.x - p.x, closest.y - p.y);
 
-                        for (let f of unreservedFoods) {
-                            let d = Math.hypot(f.x - p.x, f.y - p.y);
-                            if (d < minD) {
-                                minD = d;
-                                closest = f;
+                            for (let f of unreservedFoods) {
+                                let d = Math.hypot(f.x - p.x, f.y - p.y);
+                                if (d < minD) {
+                                    minD = d;
+                                    closest = f;
+                                }
                             }
-                        }
 
-                        closest.reservedBy = p.id;
-                        p.targetFood = closest;
-                        p.targetX = closest.x - 20;
-                        p.targetY = closest.y - 30;
-                        setPigeonAnimation(p, 'walking');
+                            closest.reservedBy = p.id;
+                            p.targetFood = closest;
+                            p.targetX = closest.x - 20;
+                            p.targetY = closest.y - 30;
+                            setPigeonAnimation(p, 'walking');
+                        }
                     }
                 }
-
-                if (p.state === 'idle' && Math.random() < 0.02) {
+                if (p.state === 'idle' && Math.random() < 0.02 && !p.targetFood) {
                     p.targetX = Math.random() * areaWidth + 40;
                     p.targetY = Math.random() * (grassBottom - grassTop) + grassTop;
                     setPigeonAnimation(p, 'walking');
@@ -1309,8 +1407,10 @@
             if (coins >= 50) {
                 coins -= 50;
                 foodInventory.peas += 1;
+                updateQuestProgress('buy_count', 1);
                 updateHUD();
                 updateFoodButtonsUI();
+                saveGameData();
                 sounds.playSuccess();
             } else {
                 showFloatingText(window.innerWidth / 2 - 40, window.innerHeight / 2, 'Không đủ Xu! 🪙', '#ef4444');
@@ -1325,8 +1425,9 @@
                 coins -= 100;
                 hasNetUpgrade = true;
                 netTimeRemaining += 120;
-                
+                updateQuestProgress('buy_count', 1);
                 updateHUD();
+                saveGameData();
                 sounds.playSuccess();
                 showFloatingText(window.innerWidth / 2, window.innerHeight / 2, 'Đã kích hoạt Lưới Siêu Rộng 2 phút! ⚡', '#38bdf8');
                 
@@ -1496,16 +1597,17 @@
                     </div>
                     <h4 class="font-black text-sm text-slate-900 leading-tight">${s.name}</h4>
                     <div class="text-[10px] italic text-slate-500 mb-2">${s.scientific}</div>
-                    <p class="text-[11px] text-slate-600 font-bold mb-3">Giá trị bán: <span class="text-amber-600 font-black">${s.coinReward} 🪙</span> / con</p>
+                    <p class="text-[11px] text-slate-600 font-bold mb-3 flex items-center gap-1">Giá trị bán: <span class="text-amber-600 font-black flex items-center gap-0.5">${s.coinReward} <svg class="w-4 h-4 inline-block drop-shadow-sm" viewBox="0 0 36 36"><circle cx="18" cy="18" r="16" fill="#f59e0b" stroke="#b45309" stroke-width="2"/><circle cx="18" cy="18" r="13" fill="#fbbf24" stroke="#d97706" stroke-width="1.5"/><circle cx="18" cy="18" r="10" fill="#fef08a" stroke="#f59e0b" stroke-width="1"/><text x="18" y="23" font-size="14" font-weight="900" fill="#b45309" text-anchor="middle">đ</text></svg></span> / con</p>
                 </div>
-                <button class="sell-btn w-full py-2 bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white font-black text-xs rounded-xl shadow border-b-2 border-orange-700 active:scale-95 transition-all" data-id="${s.id}">
-                    BÁN 1 CON (+${s.coinReward} 🪙)
+                <button class="sell-btn w-full py-2 bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white font-black text-xs rounded-xl shadow border-b-2 border-orange-700 active:scale-95 transition-all flex items-center justify-center gap-1" data-id="${s.id}">
+                    BÁN 1 CON (+${s.coinReward} <svg class="w-4 h-4 inline-block drop-shadow-sm" viewBox="0 0 36 36"><circle cx="18" cy="18" r="16" fill="#f59e0b" stroke="#b45309" stroke-width="2"/><circle cx="18" cy="18" r="13" fill="#fbbf24" stroke="#d97706" stroke-width="1.5"/><circle cx="18" cy="18" r="10" fill="#fef08a" stroke="#f59e0b" stroke-width="1"/><text x="18" y="23" font-size="14" font-weight="900" fill="#b45309" text-anchor="middle">đ</text></svg>)
                 </button>`;
 
                 card.querySelector('.sell-btn').addEventListener('click', () => {
                     if (pigeonInventory[s.id] > 0) {
                         pigeonInventory[s.id]--;
                         coins += s.coinReward;
+                        updateQuestProgress('sell_count', 1);
                         updateHUD();
                         sounds.playSuccess();
                         showFloatingText(window.innerWidth / 2, window.innerHeight / 2, `Bán thành công +${s.coinReward} 🪙`, '#f59e0b');
@@ -1519,39 +1621,275 @@
 
         document.getElementById('sellAllBtn').onclick = function() {
             let totalEarned = 0;
+            let totalSoldCount = 0; // Khai báo biến đếm tổng số lượng chim bán để cộng nhiệm vụ
+            
             PIGEON_DATABASE.forEach(s => {
                 const count = pigeonInventory[s.id] || 0;
                 if (count > 0) {
                     totalEarned += count * s.coinReward;
-                    pigeonInventory[s.id] = 0;
+                    totalSoldCount += count; // Cộng dồn số lượng
+                    pigeonInventory[s.id] = 0; // Xóa sạch số lượng loài đó trong kho
                 }
             });
 
             if (totalEarned > 0) {
                 coins += totalEarned;
+                
+                // Cập nhật tiến trình nhiệm vụ bán chim an toàn
+                if (typeof updateQuestProgress === 'function') {
+                    updateQuestProgress('sell_count', totalSoldCount);
+                }
+
                 updateHUD();
+                
+                // Lưu lại dữ liệu vĩnh viễn (nếu đã tích hợp hàm lưu)
+                if (typeof saveGameData === 'function') {
+                    saveGameData();
+                }
+
                 sounds.playSuccess();
                 showFloatingText(window.innerWidth / 2, window.innerHeight / 2, `Đã bán tất cả! +${totalEarned} 🪙`, '#f59e0b');
-                renderLoft();
+                renderLoft(); // Tải lại giao diện kho (lúc này sẽ hiển thị trống đúng nghĩa)
             } else {
                 showFloatingText(window.innerWidth / 2, window.innerHeight / 2, 'Kho đang trống không có gì để bán!', '#ef4444');
             }
         };
-
-        window.onload = function() {
-            updateHUD();
-            updateFoodButtonsUI();
-
-            for (let i = 0; i < 3; i++) {
-                setTimeout(() => spawnPigeon(), i * 600);
+document.getElementById('buyBreadBtn').addEventListener('click', () => {
+            if (coins >= 150) {
+                coins -= 150;
+                foodInventory.bread += 1;
+                updateQuestProgress('buy_count', 1);
+                updateHUD();
+                updateFoodButtonsUI();
+                saveGameData();
+                sounds.playSuccess();
+                showFloatingText(window.innerWidth / 2, window.innerHeight / 2, 'Đã mua x1 Bánh Mì! 🍞', '#f59e0b');
+            } else {
+                showFloatingText(window.innerWidth / 2 - 40, window.innerHeight / 2, 'Không đủ Xu! 🪙', '#ef4444');
             }
+        });
+// ==========================================
+      // HỆ THỐNG NHIỆM VỤ HÀNG NGÀY (RANDOM 3 NHIỆM VỤ THEO NGÀY)
+      // ==========================================
+      const MASTER_QUEST_POOL = [
+          { id: 'feed_5', title: 'Thợ rải mồi chăm chỉ', desc: 'Rải thức ăn xuống bãi cỏ 5 lần', target: 5, type: 'feed_count', reward: 40 },
+          { id: 'feed_10', title: 'Đại gia hạt giống', desc: 'Rải thức ăn xuống bãi cỏ 10 lần', target: 10, type: 'feed_count', reward: 80 },
+          { id: 'catch_3', title: 'Tập sự giăng lưới', desc: 'Bắt thành công 3 con bồ câu bất kỳ', target: 3, type: 'catch_count', reward: 50 },
+          { id: 'catch_7', title: 'Thợ săn chuyên nghiệp', desc: 'Bắt thành công 7 con bồ câu bất kỳ', target: 7, type: 'catch_count', reward: 100 },
+          { id: 'sell_2', title: 'Thương gia chim chóc', desc: 'Bán 2 con bồ câu trong Kho', target: 2, type: 'sell_count', reward: 60 },
+          { id: 'buy_item', title: 'Khách sộp cửa hàng', desc: 'Mua 1 vật phẩm bất kỳ từ Cửa Hàng Thợ Săn', target: 1, type: 'buy_count', reward: 70 },
+          { id: 'catch_rare', title: 'Săn tìm bồ câu quý', desc: 'Bắt được 1 con bồ câu có độ hiếm từ Hiếm trở lên', target: 1, type: 'catch_rare_count', reward: 120 }
+      ];
 
-            setInterval(() => {
-                if (Math.random() < 0.7) spawnPigeon();
-            }, 4500);
+      let dailyQuestData = { dateKey: '', activeQuests: [], progress: {}, claimed: {} };
 
-            gameLoop();
-        };
+      function initDailyQuests() {
+          const today = new Date();
+          const dateStr = `${today.getDate().toString().padStart(2, '0')}-${(today.getMonth() + 1).toString().padStart(2, '0')}-${today.getFullYear()}`;
+
+          const savedData = localStorage.getItem('pigeon_daily_quests');
+          if (savedData) {
+              try { dailyQuestData = JSON.parse(savedData); } catch(e) { dailyQuestData = {}; }
+          }
+
+          if (dailyQuestData.dateKey !== dateStr) {
+              const shuffled = [...MASTER_QUEST_POOL].sort(() => 0.5 - Math.random());
+              const selected = shuffled.slice(0, 3);
+
+              dailyQuestData = {
+                  dateKey: dateStr,
+                  activeQuests: selected.map(q => q.id),
+                  progress: {},
+                  claimed: {}
+              };
+
+              selected.forEach(q => {
+                  dailyQuestData.progress[q.id] = 0;
+                  dailyQuestData.claimed[q.id] = false;
+              });
+
+              saveQuestData();
+          }
+      }
+
+      function saveQuestData() {
+          localStorage.setItem('pigeon_daily_quests', JSON.stringify(dailyQuestData));
+      }
+
+      function updateQuestProgress(type, amount = 1) {
+          let updated = false;
+          dailyQuestData.activeQuests.forEach(qId => {
+              const questConfig = MASTER_QUEST_POOL.find(q => q.id === qId);
+              if (questConfig && questConfig.type === type && !dailyQuestData.claimed[qId]) {
+                  dailyQuestData.progress[qId] = (dailyQuestData.progress[qId] || 0) + amount;
+                  if (dailyQuestData.progress[qId] > questConfig.target) {
+                      dailyQuestData.progress[qId] = questConfig.target;
+                  }
+                  updated = true;
+              }
+          });
+          if (updated) {
+              saveQuestData();
+              checkQuestRedDot();
+              if (!document.getElementById('questModal').classList.contains('hidden')) {
+                  renderQuestsUI();
+              }
+          }
+      }
+      // Hàm kiểm tra xem có nhiệm vụ nào đã hoàn thành mà chưa nhận thưởng không để hiện chấm đỏ
+        function checkQuestRedDot() {
+            const dot = document.getElementById('questDot');
+            if (!dot) return;
+
+            let hasReadyToClaim = false;
+            dailyQuestData.activeQuests.forEach(qId => {
+                const config = MASTER_QUEST_POOL.find(q => q.id === qId);
+                const currentProg = dailyQuestData.progress[qId] || 0;
+                const isCompleted = currentProg >= (config ? config.target : 999);
+                const isClaimed = dailyQuestData.claimed[qId] || false;
+
+                if (isCompleted && !isClaimed) {
+                    hasReadyToClaim = true;
+                }
+            });
+
+            if (hasReadyToClaim) {
+                dot.classList.remove('hidden'); // Hiện chấm đỏ
+            } else {
+                dot.classList.add('hidden');    // Ẩn chấm đỏ đi khi đã nhận hết
+            }
+        }
+
+      function renderQuestsUI() {
+          const container = document.getElementById('questListContainer');
+          container.innerHTML = '';
+
+          dailyQuestData.activeQuests.forEach(qId => {
+              const config = MASTER_QUEST_POOL.find(q => q.id === qId);
+              if (!config) return;
+
+              const currentProg = dailyQuestData.progress[qId] || 0;
+              const isCompleted = currentProg >= config.target;
+              const isClaimed = dailyQuestData.claimed[qId] || false;
+
+              const card = document.createElement('div');
+              card.className = `p-4 rounded-2xl border-2 transition-all flex items-center justify-between gap-3 ${
+                  isClaimed ? 'bg-white/50 border-pink-200 opacity-75' : (isCompleted ? 'bg-white border-emerald-400 shadow-md ring-2 ring-emerald-300/50' : 'bg-white border-pink-300 shadow-sm')
+              }`;
+
+              card.innerHTML = `
+                  <div class="flex-grow">
+                      <div class="flex items-center gap-2 mb-1">
+                          <h4 class="font-black text-sm text-slate-900">${config.title}</h4>
+                          <span class="text-[10px] font-black px-2 py-0.5 rounded-full ${isCompleted ? 'bg-emerald-100 text-emerald-800' : 'bg-pink-100 text-pink-800'}">
+                              ${currentProg}/${config.target}
+                          </span>
+                      </div>
+                      <p class="text-xs text-slate-600 font-bold mb-2">${config.desc}</p>
+                      <div class="w-full bg-slate-100 h-2 rounded-full overflow-hidden border border-slate-200">
+                          <div class="h-full bg-gradient-to-r from-pink-500 to-rose-500 transition-all duration-300" style="width: ${(currentProg / config.target) * 100}%"></div>
+                      </div>
+                  </div>
+                  <div class="shrink-0">
+                      ${isClaimed ? 
+                          `<span class="text-xs font-black text-slate-400 bg-slate-100 px-3 py-2 rounded-xl border border-slate-200">Đã nhận</span>` :
+                          (isCompleted ? 
+                              `<button class="claim-btn px-4 py-2.5 bg-emerald-500 hover:bg-emerald-400 text-white font-black text-xs rounded-xl shadow-md border-b-4 border-emerald-700 active:scale-95 transition-all flex items-center gap-1" data-id="${config.id}">
+                                  Nhận (+${config.reward} <svg class="w-3.5 h-3.5 inline-block drop-shadow-sm" viewBox="0 0 36 36"><circle cx="18" cy="18" r="16" fill="#f59e0b" stroke="#b45309" stroke-width="2"/><circle cx="18" cy="18" r="13" fill="#fbbf24" stroke="#d97706" stroke-width="1.5"/><circle cx="18" cy="18" r="10" fill="#fef08a" stroke="#f59e0b" stroke-width="1"/><text x="18" y="23" font-size="14" font-weight="900" fill="#b45309" text-anchor="middle">đ</text></svg>)
+                              </button>` :
+                              `<div class="text-xs font-black text-amber-700 bg-amber-50 px-3 py-2 rounded-xl border border-amber-200 flex items-center gap-1">
+                                  Thưởng: ${config.reward} <svg class="w-3.5 h-3.5 inline-block drop-shadow-sm" viewBox="0 0 36 36"><circle cx="18" cy="18" r="16" fill="#f59e0b" stroke="#b45309" stroke-width="2"/><circle cx="18" cy="18" r="13" fill="#fbbf24" stroke="#d97706" stroke-width="1.5"/><circle cx="18" cy="18" r="10" fill="#fef08a" stroke="#f59e0b" stroke-width="1"/><text x="18" y="23" font-size="14" font-weight="900" fill="#b45309" text-anchor="middle">đ</text></svg>
+                              </div>`
+                          )
+                      }
+                  </div>
+              `;
+
+              if (isCompleted && !isClaimed) {
+                  card.querySelector('.claim-btn').addEventListener('click', () => {
+                      dailyQuestData.claimed[config.id] = true;
+                      coins += config.reward;
+                      updateHUD();
+                      saveQuestData();
+                      sounds.playSuccess();
+                      showFloatingText(window.innerWidth / 2, window.innerHeight / 2, `Nhận thưởng thành công! +${config.reward} 🪙`, '#f59e0b');
+                      renderQuestsUI();
+                  });
+              }
+
+              container.appendChild(card);
+          });
+      }
+
+      document.getElementById('openQuestsBtn').addEventListener('click', () => {
+          renderQuestsUI();
+          document.getElementById('questModal').classList.remove('hidden');
+      });
+      document.getElementById('closeQuestBtn').addEventListener('click', () => {
+          document.getElementById('questModal').classList.add('hidden');
+      });
+
+      initDailyQuests();
+      checkQuestRedDot();
+      // ==========================================
+      // HỆ THỐNG LƯU VÀ TẢI DỮ LIỆU GAME (LOCALSTORAGE)
+      // ==========================================
+      function saveGameData() {
+          const gameData = {
+              coins: coins,
+              pigeonInventory: pigeonInventory,
+              collectedSpecies: Array.from(collectedSpecies),
+              foodInventory: foodInventory,
+              hasNetUpgrade: hasNetUpgrade
+          };
+          localStorage.setItem('pigeon_master_save', JSON.stringify(gameData));
+      }
+
+      function loadGameData() {
+          const saved = localStorage.getItem('pigeon_master_save');
+          if (saved) {
+              try {
+                  const data = JSON.parse(saved);
+                  coins = data.coins || 0;
+                  pigeonInventory = data.pigeonInventory || {};
+                  collectedSpecies = new Set(data.collectedSpecies || []);
+                  if (data.foodInventory) foodInventory = data.foodInventory;
+                  if (data.hasNetUpgrade !== undefined) hasNetUpgrade = data.hasNetUpgrade;
+              } catch(e) {}
+          }
+      }
+
+      window.onload = function() {
+          loadGameData(); // Tải lại dữ liệu đã lưu khi mở game
+          updateHUD();
+          updateFoodButtonsUI();
+
+          const startMenuScreen = document.getElementById('startMenuScreen');
+          const startGameBtn = document.getElementById('startGameBtn');
+
+          startGameBtn.addEventListener('click', () => {
+              if (sounds.ctx.state === 'suspended') {
+                  sounds.ctx.resume();
+              }
+              sounds.playSuccess();
+
+              startMenuScreen.style.opacity = '0';
+              startMenuScreen.style.transition = 'opacity 0.4s ease';
+              setTimeout(() => {
+                  startMenuScreen.classList.add('hidden');
+              }, 400);
+
+              for (let i = 0; i < 3; i++) {
+                  setTimeout(() => spawnPigeon(), i * 600);
+              }
+
+              setInterval(() => {
+                  if (Math.random() < 0.7) spawnPigeon();
+              }, 4500);
+
+              gameLoop();
+          });
+      };
     </script>
 </body>
 </html>
